@@ -3,6 +3,9 @@ name: React.js CI
 on:
   pull_request:
     branches: "main"
+  push:
+    branches: "main"
+
 
 jobs:
   frontend-test:
