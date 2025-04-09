@@ -10,20 +10,23 @@ echo "Starting initialization script..."
 
 # Update system
 sudo apt update -y
+sudo apt upgrade -y
 
 # Install Docker 
 sudo apt install docker.io -y
 sudo usermod -aG docker ubuntu
 sudo systemctl enable --now docker 
 
-# Wait for Docker to initialize
-sleep 10
+# # Wait for Docker to initialize
+# sleep 10
 
 # Install AWS CLI
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 sudo apt install unzip -y
 unzip awscliv2.zip
 sudo ./aws/install
+echo "AWS CLI installed. Remember to configure credentials with 'aws configure'"
+
 
 # Install Kubectl
 sudo apt update
@@ -74,6 +77,8 @@ helm install grafana grafana/grafana --namespace monitoring --create-namespace
 
 # Install ingress-nginx
 helm install ingress-nginx ingress-nginx/ingress-nginx
+
+helm repo update
 
 echo "Initialization script completed successfully."
 
